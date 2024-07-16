@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["jest.config.js"]
 }

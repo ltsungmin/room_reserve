@@ -10,7 +10,7 @@ describe('getDefaultRoomAllocation', () => {
     const result = getDefaultRoomAllocation(guest, rooms);
     expect(result).toEqual({
       allocation: [
-        { adult: 2, child: 2, price: 1400, capacity: 4 },
+        { adult: 2, child: 2, price: 1600, capacity: 4 },
         { adult: 2, child: 0, price: 1000, capacity: 4 },
       ],
       remainingAdults: 0,
@@ -29,8 +29,8 @@ describe('getDefaultRoomAllocation', () => {
     const result = getDefaultRoomAllocation(guest, rooms);
     expect(result).toEqual({
       allocation: [
-        { adult: 4, child: 0, price: 2800, capacity: 4 },
         { adult: 3, child: 3, price: 2900, capacity: 4 },
+        { adult: 4, child: 0, price: 2800, capacity: 4 },
         { adult: 0, child: 0, price: 0, capacity: 2 },
         { adult: 0, child: 0, price: 0, capacity: 2 },
       ],

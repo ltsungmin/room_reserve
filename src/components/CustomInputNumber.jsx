@@ -37,7 +37,6 @@ function CustomInputNumber({
     }
   };
 
-
   const handleChange = (event) => {
     const { value } = event.target;
     const parsedValue = value === '' ? '' : parseInt(value, 10);
@@ -45,9 +44,7 @@ function CustomInputNumber({
     if (
       /^[0-9]*$/.test(value) &&
       (value === '' ||
-        (!isNaN(parsedValue) &&
-          parsedValue >= min &&
-          parsedValue <= max))
+        (!isNaN(parsedValue) && parsedValue >= min && parsedValue <= max))
     ) {
       if (
         (parsedValue === '' || parsedValue === 0 || parsedValue !== 0) &&
@@ -57,7 +54,9 @@ function CustomInputNumber({
           : remainingChildren >= parsedValue)
       ) {
         setInputValue(parsedValue);
-        onChange({ target: { name, value: parsedValue === '' ? 0 : parsedValue } });
+        onChange({
+          target: { name, value: parsedValue === '' ? 0 : parsedValue },
+        });
       }
     }
   };
@@ -82,7 +81,10 @@ function CustomInputNumber({
   };
 
   return (
-    <div className="flex items-center" onBlur={handleComponentBlur}>
+    <div
+      className="flex items-center"
+      onBlur={handleComponentBlur}
+    >
       <button
         className={classNames('px-2 py-2 rounded w-12 h-12', {
           'bg-white border border-blue-300 text-gray-500':
