@@ -37,45 +37,47 @@ function CustomInputNumber({
     }
   };
 
+
   const handleChange = (event) => {
     const { value } = event.target;
+    const parsedValue = value === '' ? '' : parseInt(value, 10);
 
     if (
       /^[0-9]*$/.test(value) &&
       (value === '' ||
-        (!isNaN(value) &&
-          parseInt(value, 10) >= min &&
-          parseInt(value, 10) <= max))
+        (!isNaN(parsedValue) &&
+          parsedValue >= min &&
+          parsedValue <= max))
     ) {
-      const intValue = value === '' ? '' : parseInt(value, 10);
-
       if (
-        (value === '' || value === '0' || intValue !== 0) &&
-        !(intValue === 1 && hasChildren) &&
+        (parsedValue === '' || parsedValue === 0 || parsedValue !== 0) &&
+        !(parsedValue === 1 && hasChildren) &&
         (name.includes('adults')
-          ? remainingAdults >= intValue
-          : remainingChildren >= intValue)
+          ? remainingAdults >= parsedValue
+          : remainingChildren >= parsedValue)
       ) {
-        setInputValue(value);
-        onChange({ target: { name, value: intValue } });
+        setInputValue(parsedValue);
+        onChange({ target: { name, value: parsedValue === '' ? 0 : parsedValue } });
       }
     }
   };
 
   const handleComponentBlur = (event) => {
     const { name, value } = event.target;
+    const parsedValue = parseInt(value, 10);
 
     // Validate the input value
     if (
       /^[0-9]+$/.test(value) &&
-      parseInt(value, 10) >= min &&
-      parseInt(value, 10) <= max
+      !isNaN(parsedValue) &&
+      parsedValue >= min &&
+      parsedValue <= max
     ) {
-      onBlur({ target: { name, value: parseInt(value, 10) } });
+      onBlur({ target: { name, value: parsedValue } });
     } else {
       // Reset to the previous valid value if invalid input
-      setInputValue(value);
-      onBlur({ target: { name, value: parseInt(inputValue, 10) } });
+      setInputValue(inputValue);
+      onBlur({ target: { name, value: inputValue } });
     }
   };
 
@@ -97,7 +99,7 @@ function CustomInputNumber({
         type="text"
         className="mx-4 tracking-normal text-center px-2 py-2 w-12 h-12 border"
         name={name}
-        value={inputValue}
+        value={inputValue === '' ? '0' : String(inputValue)}
         onChange={handleChange}
         onBlur={handleComponentBlur}
         pattern="[0-9]*"
